@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Vibe | Dashboard</title>
+{% endblock %}
+{% block style %}
+<style>
+.main{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 40px;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="main">
+<div class="card mt-4 text-center" style="background-color: rgb(252, 239, 250);">
+    <div class="card-header"><b>MATCH REQUESTS</b></div>
+    <div class="card-body">
+       <div class="row" style="justify-content: center;margin-right: 5px;">
+        {% if match_request_num == 0 %}
+        There are no Match Requests.
+        {% else %}
+        {% for x in match_request %}
+        <div class="card text-white bg-dark mb-3" style="max-width: 22rem; margin-left: 10px;">
+            <div class="card-header">Match Request #{{ forloop.counter }}</div>
+            <div class="card-body">
+                <center>
+                    <img src="https://avatars.dicebear.com/api/bottts/{{ x.sender }}.svg" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 15px;">
+                </center>
+              <h5 class="card-title"><span style="color: rgb(83, 158, 209);">@{{ x.sender }}</span></h5>
+              <p class="card-text">
+                  @{{ x.sender }} wants to connect with you!
+              </p>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-light btn-sm" href="/profileuser/{{ x.sender }}">View Profile</a>
+              </div>
+          </div>
+          {% endfor %}
+          {% endif %}                      
+        </div>
+    </div>
+</div>
+    <div class="card mt-4 text-center" style="background-color: rgb(252, 239, 250);">
+    <div class="card-header"><b>YOUR MATCHES</b></div>
+    <div class="card-body">
+       <div class="row" style="justify-content: center;margin-right: 5px;">
+        {% if accepted_request_num == 0 %}
+        There's no accepted request for you.
+        {% else %}
+        {% for x in accepted_request %}
+        <div class="card text-white bg-dark mb-3" style="max-width: 22rem; margin-left: 10px;">
+            <div class="card-header">Profile #{{ forloop.counter }}</div>
+            <div class="card-body">
+                <center>
+                    <img src="https://avatars.dicebear.com/api/bottts/{{ x.sender }}.svg" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 15px;">
+                </center>
+              <h5 class="card-title"><span style="color: rgb(83, 158, 209);">@{{ x.sender }}</span></h5>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-light btn-sm" href="/profileuser/{{ x.sender }}">View Profile</a>
+              </div>
+          </div>
+           {% endfor %}
+           {% endif %}                     
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

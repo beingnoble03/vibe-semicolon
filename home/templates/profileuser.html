@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% block title %}
+<title> Vibe | Profile</title>
+{% endblock %}
+{% block style %}
+<style>
+.content{
+    width: 90%;
+    max-width: 500px;
+    min-width: 300px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border: 0.1px white solid;
+    box-shadow: 0px 0px 20px grey;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+.status:hover{
+    color: rgb(219, 126, 39);
+    
+}
+</style>
+{% endblock %}
+{% block navbar %}
+<li class="nav-item"><a href="/" class="nav-link">Dashboard</a></li>
+<li class="nav-item"><a href="/feed" class="nav-link">Feed</a></li>
+<li class="nav-item"><a href="{% url 'profile-page' %}" class="nav-link">Settings</a></li>
+{% endblock %}
+{% block content %}
+<div class = "content">
+    {% if details.image %}
+    <img style = "border-radius: 10px;" src="{{ details.image.url }}" width="100%" height="auto">
+    {% else %}
+   <img style = "border-radius: 10px;" src="https://avatars.dicebear.com/api/bottts/{{ details.username }}.svg" width="100%" height="auto">
+   {% endif %}
+   <h5 style="margin-top: 10px; text-align: center;">{{ details.firstname }} {{ details.lastname }}</h5>
+<b><span style="text-align: left; margin-left: 10px; font-size: 18px;">{{ count }} Tags Matched</span></b>
+   <br>
+    <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        <span class="badge bg-dark" style="font-size: 14px;">{{ details.hobby }}</span>
+        <span class="badge bg-dark" style="font-size: 14px;">{{ details.hangout }}</span>
+        <span class="badge bg-dark" style="font-size: 14px;">{{ details.food }}</span>
+        <span class="badge bg-dark" style="font-size: 14px;">{{ details.music }}</span>
+    </div>
+    <b><span style="text-align: left; margin-left: 10px; font-size: 18px;">Username </span></b>
+    <br>
+    <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+       @{{ details.username }}
+    </div>
+    <b><span style="text-align: left; margin-left: 10px; font-size: 18px;">Branch </span></b>
+    <br>
+    <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+       {{ details.branch }}
+    </div>
+    <b><span style="text-align: left; margin-left: 10px; font-size: 18px;">Bhawan </span></b>
+    <br>
+    <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        {{ details.bhawan }}
+    </div>
+    <b><span style="text-align: left; margin-left: 10px; font-size: 18px;">State: </span></b>
+    <br>
+    <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        {{ details.state }}
+    </div>
+    <b><span style="text-align: left; margin-left: 10px; font-size: 18px;">About</span></b>
+    <br>
+    <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        {{ details.bio }}    
+    </div>
+
+    <b><span style="text-align: left; margin-left: 10px; font-size: 18px;">Contact Details </span></b>
+    <br>
+    {% if match_is_get and match_is_sent %}
+    <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+       <span>Instagram: </span> 
+       {% if details.insta != "" %}
+       <span>
+           <a href="{{ details.insta }}" target="_blank">View {{ details.firstname }}'s Insta Profile</a></span>
+       {% else %}
+       <span>Not Given</span>
+       {% endif %}
+    </div>
+    <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        <span>Facebook: </span> 
+        {% if details.facebook != "" %}
+       <span><a href="{{ details.facebook }}" target="_blank">View {{ details.firstname }}'s Facebook Profile</a></span>
+       {% else %}
+       <span>Not Given</span>
+       {% endif %}
+     </div>
+     <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        <span>Twitter: </span>
+        {% if details.twitter != "" %}
+        <span><a href="{{ details.twitter }}" target="_blank">View {{ details.firstname }}'s Twitter Profile</a></span>
+        {% else %}
+        <span>Not Given</span>
+        {% endif %}
+     </div>
+     <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        <span>Mobile Number: </span> 
+       <span>{{ details.phone }}</span>
+     </div>
+     <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        <span>Email ID: </span> 
+       <span>{{ details.email }}</span>
+     </div>
+     {% else %}
+     <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        <span>Can't reveal contact details until you are connected with this person.</span> 
+     </div>
+     {% endif %}
+     <b><span style="text-align: left; margin-left: 10px; font-size: 18px;">Request Status</span></b>
+    <br>
+    {% if match_is_get and match_is_sent %}
+    <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        Wow! You are now a match!
+    </div>
+    {% elif match_is_get %}
+    <button type="button" class="btn btn-outline-success" style="padding: 3px;padding-right: 15px;padding-left: 15px; margin-left: 10px;margin-top: 10px ;margin-bottom: 20px;" id = "submit-yes">Accept Request</button>
+    {% elif match_is_sent %}
+    <div style="margin-left: 10px; margin-bottom: 10px;margin-right: 10px;">
+        The request has been sent!
+    </div>
+    {% else %}
+    <button type="button" class="btn btn-outline-success" style="padding: 3px;padding-right: 15px;padding-left: 15px; margin-left: 10px;margin-top: 10px ;margin-bottom: 20px;" id = "submit-yes">Send Request</button>
+    {% endif %}
+</div>
+<script>
+$("#submit-yes").click(function(){
+    new Notify ({
+        status: 'warning',
+        title: 'Processing',
+        text: 'Request is being analysed...',
+        effect: 'slide',
+        speed: 300,
+        customClass: '',
+        customIcon: '',
+        showIcon: true,
+        showCloseButton: false,
+        autoclose: true,
+        autotimeout: 2500,
+        gap: 50,
+        distance: 20,
+        type: 2,
+        position: 'right bottom'
+    })
+    $.ajax({
+    url: "{% url 'match-yes' %}",
+    method: "POST",
+    data: {
+        sender: '{{ request.user.username }}',
+        getter: '{{ details.username }}'
+    },
+    success: function(data,xhr,status){
+        window.location.reload();
+    },
+    error: function(xhr,status,err){
+        alert(err);
+    }
+    })
+})
+</script>
+{% endblock %}  

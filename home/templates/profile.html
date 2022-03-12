@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Vibe | Profile</title>
+{% endblock %}
+{% block style %}
+<style>
+body {
+    background: rgb(99, 39, 120)
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
+</style>
+{% endblock %}
+{% block navbar %}
+<li class="nav-item"><a href="/" class="nav-link">Dashboard</a></li>
+<li class="nav-item"><a href="/feed" class="nav-link">Feed</a></li>
+<li class="nav-item"><a href="{% url 'profile-page' %}" class="nav-link active">Settings</a></li>
+{% endblock %}
+{% block content %}
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            {% if details.image %}
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" height ="150px" src="{{ details.image.url }}">
+                {% else %}
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://avatars.dicebear.com/api/bottts/{{ details.username }}.svg">
+            {% endif %}
+            <span class="font-weight-bold">@{{ details.username }}</span><span class="text-black-50">{{ details.email }}</span><span> </span><br>
+                <button class="btn btn-primary profile-button btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Upload Photo</button>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6"><label class="labels">First Name</label><input type="text" class="form-control" placeholder="First Name" value = "{{ details.firstname }}" id="firstName"></div>
+                    <div class="col-md-6"><label class="labels">Last Name</label><input type="text" class="form-control" value = "{{ details.lastname }}" placeholder="Last Name" id="lastName"></div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="number" class="form-control" placeholder="enter phone number" style="margin-bottom: 17px;" id="number" value = "{{ details.phone }}"></div>
+                    <div class="col-md-12"><label class="labels">Country</label><input type="text" class="form-control" placeholder="Country" style="margin-bottom: 17px;" id="country" value = "{{ details.country }}"></div>
+                    <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="State" style="margin-bottom: 17px;" id="state" value = "{{ details.state }}"></div>
+                    <div class="col-md-12"><label class="labels">Zipcode</label><input type="number" class="form-control" placeholder="Pincode" style="margin-bottom: 17px;" id="zipcode" value = "{{ details.zipcode }}"></div>
+                    <div class="col-md-12"><label class="labels">Branch</label><input type="text" class="form-control" placeholder="Branch" style="margin-bottom: 17px;" id="branch" value = "{{ details.branch }}"></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" style="margin-bottom: 17px;" id="email" value = "{{ details.email }}"></div>
+                    <div class="col-md-12"><label class="labels">Bhawan</label><input type="text" class="form-control" placeholder="Bhawan" style="margin-bottom: 15px;" id="bhawan" value = "{{ details.bhawan }}"></div>
+                    <div class="col-md-12"><label class="labels">Bio</label><input type="text" class="form-control" placeholder="About" style="margin-bottom: 6px;" id="about" value = "{{ details.bio }}"></div>
+
+                </div>
+                
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" onclick="error()">Save Profile</button></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center experience"><span>Add Social Media Accounts</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i></span></div><br>
+                <div class="col-md-12"><label class="labels">Instagram</label><input type="text" class="form-control" placeholder="Instagram" value = "{{ details.insta }}" id = "insta"></div> <br>
+                <div class="col-md-12"><label class="labels">Facebook</label><input type="text" class="form-control" placeholder="Facebook" value = "{{ details.facebook }}" id = "facebook"></div><br>
+                <div class="col-md-12"><label class="labels">Twitter</label><input type="text" class="form-control" placeholder="Twitter" value = "{{ details.twitter }}" id = "twitter"></div>
+                <br>
+                <div class="d-flex justify-content-between align-items-center experience"><span>Your Tags</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i></span></div><br>
+                <span class="badge bg-primary" style="font-size: 14px;">{{ details.hobby }}</span>
+                <span class="badge bg-dark" style="font-size: 14px;">{{ details.hangout }}</span>
+                <span class="badge bg-success" style="font-size: 14px;">{{ details.food }}</span>
+                <span class="badge bg-danger" style="font-size: 14px;">{{ details.music }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Upload Image</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!-- <form method = "post" enctype="multipart/form-data"> -->
+            <!-- {% csrf_token %} -->
+        <div class="modal-body">
+            <img id = "preview-image" style="width: 200px; height: 200px;">
+            <input type="file"  accept="image/gif, image/jpeg, image/png" name="image" id="file" onchange="loadFile(event)">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="upload-button">Upload</button>
+        </div>
+    <!-- </form> -->
+      </div>
+    </div>
+  </div>
+
+<script>
+    function error(){
+        if(document.getElementById("firstName").value.trim() == "" || document.getElementById("lastName").value.trim() == ""|| document.getElementById("email").value.trim() == ""|| document.getElementById("bhawan").value.trim() == ""|| document.getElementById("country").value.trim() == ""|| document.getElementById("state").value.trim() == ""|| document.getElementById("number").value.trim() == ""|| document.getElementById("branch").value.trim() == ""|| document.getElementById("about").value.trim() == ""){
+            alert("Please fill all the fields correctly.");
+        } else {
+            new Notify ({
+                status: 'warning',
+                title: 'Wait',
+                text: 'Processing your request...',
+                effect: 'slide',
+                speed: 300,
+                customClass: '',
+                customIcon: '',
+                showIcon: true,
+                showCloseButton: false,
+                autoclose: true,
+                autotimeout: 2500,
+                gap: 50,
+                distance: 20,
+                type: 2,
+                position: 'right bottom'
+            })
+            $.ajax({
+            url: "{% url 'update-profile' %}",
+            method: "POST",
+            data: {
+              firstname: document.getElementById("firstName").value,
+              lastname: document.getElementById("lastName").value,
+              username: "{{ details.username }}",
+              email: document.getElementById("email").value,
+              bhawan: document.getElementById("bhawan").value,
+              country: document.getElementById("country").value,
+              state: document.getElementById("state").value,
+              zip: document.getElementById("zipcode").value,
+              number: document.getElementById("number").value,
+              branch: document.getElementById("branch").value,
+              about: document.getElementById("about").value,
+              insta: document.getElementById("insta").value,
+              facebook: document.getElementById("facebook").value,
+              twitter: document.getElementById("twitter").value,
+            },
+            success: function(data, status, xhr){
+                if(data.created === "yes"){
+                    if(!alert("The account has been successfully updated.")){
+                    if(window.location.href == "/"){
+                            window.location.reload();
+                        } else {
+                            window.location.replace("/profile/");
+                        }
+                    }
+                } else {
+                    alert("Some error occured.");
+                }
+            },
+            error: function(xhr, status, err){
+                alert(err);
+            }
+
+        })
+
+        }
+    }
+    var loadFile = function(event) {
+        var img = document.getElementById("preview-image");
+    	img.src = URL.createObjectURL(event.target.files[0]);
+    };
+    $("#upload-button").click(function() {
+        var files = document.getElementById("file").files;
+        console.log(files);
+        var formData = new FormData();
+        formData.append('image', files[0]);
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        console.log("hello world");
+        if(files.length > 0 ){
+            console.log("confirm");
+            $.ajax({
+            url: "{% url 'picture-upload' %}",
+            enctype: "multipart/form-data",
+            method: "POST",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function(data, status, xhr){
+                alert("Image Uploaded Successfully!");
+                window.location.reload();
+            },
+            error: function(xhr, status, err){
+                alert("Some error occured");
+            }
+            })
+        }
+    })
+</script>
+{% endblock %}

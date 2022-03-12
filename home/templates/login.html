@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Vibe | Login Portal</title>
+{% endblock %}
+{% block style %}
+<style>
+.main{
+    margin-left: 50%;
+    transform: translate(-50%);
+    width: 350px;
+    }
+#submit-button{
+    float: right;
+    }
+#basic-addon1, #basic-addon2, #username-input, #password-input{
+
+    border: none;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1), 0 2px 8px 0 rgba(0, 0, 0, 0.10),0 2px 8px 0 rgba(0, 0, 0, 0.10);
+    text-align: center;
+    font-family: 'Abel', sans-serif;
+    outline: none;
+    background-color: rgb(252, 239, 250);
+}     
+</style>
+{% endblock %}
+{% block navbar %}
+<li class="nav-item"><a href="#" class="nav-link disabled" aria-current="page">Dashboard</a></li>
+<li class="nav-item"><a href="#" class="nav-link disabled">Feed</a></li>
+<li class="nav-item"><a href="#" class="nav-link disabled">Settings</a></li>
+{% endblock %}
+{% block content %}
+<div class = "main" style="padding-top: 30px; padding-bottom: 100px;">
+    <center>
+        <b>LOGIN PANEL | VIBE</b><br><small>Login to view registered VIBE profiles</small><br><br>
+    </center>
+    <div class="input-group mb-4">
+        <span class="input-group-text" id="basic-addon1">@</span>
+        <input type="text" class="form-control" id= "username-input" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-4">
+        <span class="input-group-text" id="basic-addon2">🗝️</span>
+        <input type="password" class="form-control" id = "password-input" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
+    </div>
+    <button type="button" class="btn btn-outline-dark btn-sm" id= "submit-button">Let Me In ></button>
+</div>
+<script>
+    $("#submit-button").click(function() {
+        new Notify ({
+            status: 'warning',
+            title: 'Wait',
+            text: 'Processing your request...',
+            effect: 'slide',
+            speed: 300,
+            customClass: '',
+            customIcon: '',
+            showIcon: true,
+            showCloseButton: false,
+            autoclose: true,
+            autotimeout: 2500,
+            gap: 50,
+            distance: 20,
+            type: 2,
+            position: 'right bottom'
+        })
+        $.ajax({
+            url: "{% url 'authenticate-user' %}",
+            method: "POST",
+            data: {
+                username: document.getElementById("username-input").value,
+                password: document.getElementById("password-input").value
+            },
+            success: function(data, status, xhr){
+                if(data.authenticated === "yes"){
+                    if(window.location.href == "/"){
+                        window.location.reload();
+                    } else {
+                        window.location.replace("/");
+                    }
+                } else {
+                    alert("You are not authenticated.");
+                }
+            },
+            error: function(xhr, status, err){
+                alert("Some error occured");
+            }
+
+        })
+    })
+</script>      
+
+{% endblock %}

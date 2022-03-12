@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Vibe | Feed</title>
+{% endblock %}
+{% block style %}
+<style>
+.main{
+    margin-left: 50%;
+    transform: translate(-50%);
+}
+</style>
+{% endblock %}
+{% block navbar %}
+<li class="nav-item"><a href="/" class="nav-link">Dashboard</a></li>
+<li class="nav-item"><a href="/feed" class="nav-link active">Feed</a></li>
+<li class="nav-item"><a href="{% url 'profile-page' %}" class="nav-link">Settings</a></li>
+{% endblock %}
+{% block content %}
+<center>
+    
+    </center>
+    <center><h6 style ="margin-left: 28px; margin-top: 5px;">These PROFILES are filtered according to no. of tags matched.</h6></center>
+    <div class="row" style="width: 99%; margin-top: 20px; justify-content: center;">
+        {% for detail in details_tag4 %}
+    <div class="card text-white bg-dark text-center" style="width: 20rem;margin-left: 20px; margin-bottom: 40px;">
+      <div class="card-header">Tags Matching 4</div>
+      {% if detail.image %}
+      <img src="{{ detail.image.url }}" class="card-img-top" style="border-radius: 5px; margin-top: 10px; height: 220px;">
+      {% else %} 
+      <img src="https://avatars.dicebear.com/api/bottts/{{ detail.username }}.svg" class="card-img-top" style="border-radius: 5px; margin-top: 10px; height: 220px;">
+      {% endif %} 
+      <div class="card-body">
+          <h5 class="card-title">{{ detail.firstname }} {{ detail.lastname }}</h5>
+          <small>{{ detail.branch }}</small>
+          <p class="card-text">{{ detail.bio }}</p>
+        </div>
+        <div class="card-footer" style="margin-bottom: 5px;">
+        <a href="/profileuser/{{ detail.username }}">
+          <button type="button" class="btn-primary">VIEW PROFILE</button>
+        </a>
+        </div>
+      </div>
+      {% endfor %}
+        {% for detail in details_tag3 %}
+        <div class="card text-white bg-dark text-center" style="width: 20rem;margin-left: 20px; margin-bottom: 40px;">
+          <div class="card-header">Tags Matching 3</div>
+          {% if detail.image %}
+          <img src="{{ detail.image.url }}" class="card-img-top" style="border-radius: 5px; margin-top: 10px; height: 220px;">
+          {% else %} 
+          <img src="https://avatars.dicebear.com/api/bottts/{{ detail.username }}.svg" class="card-img-top" style="border-radius: 5px; margin-top: 10px; height: 220px;">
+          {% endif %} 
+        <div class="card-body">
+              <h5 class="card-title">{{ detail.firstname }} {{ detail.lastname }}</h5>
+              <small>{{ detail.branch }}</small>
+              <p class="card-text">{{ detail.bio }}</p>
+            </div>
+            <div class="card-footer" style="margin-bottom: 5px;">
+            <a href="/profileuser/{{ detail.username }}">
+              <button type="button" class="btn-primary">VIEW PROFILE</button>
+            </a>
+            </div>
+          </div>
+          {% endfor %}
+          {% for detail in details_tag2 %}
+          <div class="card text-white bg-dark text-center" style="width: 20rem;margin-left: 20px; margin-bottom: 40px;">
+            <div class="card-header">Tags Matching 2</div>
+            {% if detail.image %}
+            <img src="{{ detail.image.url }}" class="card-img-top" style="border-radius: 5px; margin-top: 10px; height: 220px;">
+            {% else %} 
+            <img src="https://avatars.dicebear.com/api/bottts/{{ detail.username }}.svg" class="card-img-top" style="border-radius: 5px; margin-top: 10px; height: 220px;">
+            {% endif %} 
+            <div class="card-body">
+                <h5 class="card-title">{{ detail.firstname }} {{ detail.lastname }}</h5>
+                <small>{{ detail.branch }}</small>
+                <p class="card-text">{{ detail.bio }}</p>
+              </div>
+              <div class="card-footer" style="margin-bottom: 5px;">
+              <a href="/profileuser/{{ detail.username }}">
+                <button type="button" class="btn-primary">VIEW PROFILE</button>
+              </a>
+              </div>
+            </div>
+            {% endfor %}
+            {% for detail in details_tag1 %}
+            <div class="card text-white bg-dark text-center" style="width: 20rem;margin-left: 20px; margin-bottom: 40px;">
+              <div class="card-header">Tags Matching 1</div>
+              {% if detail.image %}
+              <img src="{{ detail.image.url }}" class="card-img-top" style="border-radius: 5px; margin-top: 10px; height: 220px;">
+              {% else %} 
+              <img src="https://avatars.dicebear.com/api/bottts/{{ detail.username }}.svg" class="card-img-top" style="border-radius: 5px; margin-top: 10px; height: 220px;">
+              {% endif %} 
+              <div class="card-body">
+                  <h5 class="card-title">{{ detail.firstname }} {{ detail.lastname }}</h5>
+                  <small>{{ detail.branch }}</small>
+                  <p class="card-text">{{ detail.bio }}</p>
+                </div>
+                <div class="card-footer" style="margin-bottom: 5px;">
+                <a href="/profileuser/{{ detail.username }}">
+                  <button type="button" class="btn-primary">VIEW PROFILE</button>
+                </a>
+                </div>
+              </div>
+              {% endfor %}
+              {% for detail in details_tag0 %}
+              <div class="card text-white bg-dark text-center" style="width: 20rem;margin-left: 20px; margin-bottom: 40px;">
+                <div class="card-header">Tags Matching 0</div>
+                {% if detail.image %}
+                <img src="{{ detail.image.url }}" class="card-img-top" style="border-radius: 5px; margin-top: 10px; height: 220px;">
+                {% else %} 
+                <img src="https://avatars.dicebear.com/api/bottts/{{ detail.username }}.svg" class="card-img-top" style="border-radius: 5px; margin-top: 10px; height: 220px;">
+                {% endif %} 
+                <div class="card-body">
+                    <h5 class="card-title">{{ detail.firstname }} {{ detail.lastname }}</h5>
+                    <small>{{ detail.branch }}</small>
+                    <p class="card-text">{{ detail.bio }}</p>
+                  </div>
+                  <div class="card-footer" style="margin-bottom: 5px;">
+                  <a href="/profileuser/{{ detail.username }}">
+                    <button type="button" class="btn-primary">VIEW PROFILE</button>
+                  </a>
+                  </div>
+                </div>
+            {% endfor %}
+    </div>
+{% endblock %}
