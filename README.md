@@ -20,6 +20,8 @@ A project made by Team </TheSemicolon> for Syntax error 2022. This is a dating a
  
  • Friends-only section- where students can look for friends sharing common interests, and not just dating partners.
 
- Deployed on Heroku
+> Deployed on Heroku: [Vibe | Heroku](https://vibe-semicolon.herokuapp.com/)
  
  Due to shortage of time we were not able to implement Postgresql.
+ 
+ ### Impleting the Postgresql soon.
