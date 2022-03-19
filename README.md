@@ -1,5 +1,5 @@
 # Vibe
-A project made by Team </TheSemicolon> for Syntax error 2022. This is a dating app made exclusively for the IITR Junta. The backend of the project is made using Django and the frontend is made using plain Javascript and Bootstrap. 
+A project made by Team TheSemicolon for Syntax error 2022. This is a dating app made exclusively for the IITR Junta. The backend of the project is made using Django and the frontend is made using plain Javascript and Bootstrap. 
 ### Features of the app
  - A lean and minimalistic interface.
  - Ability to edit your profile at any point of time. 
